@@ -78,7 +78,8 @@ namespace OPCDA.DATools
         {
             IEnumerable<DANodeInfo> nodeInfos;
 
-            using (var reader = new StreamReader("./NodeFiles/Core1.csv"))
+            //using (var reader = new StreamReader("./NodeFiles/Core1.csv"))
+            using (var reader = new StreamReader("./NodeFiles/nodes.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Context.RegisterClassMap<DANodeInfoMap>();
@@ -93,18 +94,24 @@ namespace OPCDA.DATools
                     ItemName = nodeInfo.Address.ToString()
                 });
             }
+            this.subscription = (Subscription)Server.CreateSubscription(state);
+            var itemss = items.ToArray();
+            subscription.AddItems(items.ToArray());
         }
 
-        public void Read()
+        public async Task ReadAsync()
         {
-            this.subscription = (Subscription)Server.CreateSubscription(state);
-            var itemss=items.ToArray();
-            subscription.AddItems(items.ToArray());
+            
             ItemValueResult[] values = subscription.Read(subscription.Items);
-            var res= subscription.Items.Length;
+            var res= await Task.Run(() =>
+            {
+                return subscription.Read(subscription.Items);
+            });
+
+            
             foreach (var item in values)
             {
-                Console.WriteLine(item.ItemName+":::         "+item.Value);
+                Console.WriteLine(item.ItemName+":::         "+item.Value + ":::         " + item.Timestamp);
             }
         }
     }

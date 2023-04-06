@@ -1,4 +1,5 @@
-﻿using OPCDA.Entity;
+﻿using OPCDA.DATools;
+using OPCDA.Entity;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,23 +13,30 @@ namespace OPCDA.DATasks
     public class Tasks
     {
         List<TaskInfo> taskList = new List<TaskInfo>();
+        DAReader Reader;
+        public Tasks()
+        {
 
-        public TaskInfo Create()
+        }
+        public TaskInfo Create(DAReader reader)
         {
             Process currentProcess = Process.GetCurrentProcess();
             ManualResetEvent resetEvent = new ManualResetEvent(false);
             CancellationTokenSource cts = new CancellationTokenSource();
-            Task res= Task.Factory.StartNew(() =>
+            Task res= Task.Factory.StartNew(async () =>
             {
                 resetEvent.WaitOne();//等开开启线程
+                
                 try
                 {
                     while (true)
                     {
+
+                        await reader.ReadAsync();
                         cts.Token.ThrowIfCancellationRequested();
-                        Console.WriteLine(1);
-                        Console.WriteLine(currentProcess.Id);
-                        Thread.Sleep(1000);
+                    //    Console.WriteLine(1);
+                    //    Console.WriteLine(currentProcess.Id);
+                    //    Thread.Sleep(1000);
                     }
                 }
                 catch(Exception ex)
@@ -48,9 +56,9 @@ namespace OPCDA.DATasks
             };
         }
 
-        public void Add()
+        public void Add(DAReader reader)
         {
-            taskList.Add(Create());
+            taskList.Add(Create(reader));
             Console.WriteLine(taskList[0].Task.Id);
 
      

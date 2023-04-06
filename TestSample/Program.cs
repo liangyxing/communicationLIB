@@ -14,18 +14,14 @@ namespace TestSample
             //ConnectToServer connectToServer=new ConnectToServer();
             //var conn=connectToServer.Connect("localhost", "Kemro.opc.4.IF1.1.94a");
 
-            //DAReader dAReader = new DAReader("test");
-            //var server=dAReader.Connect("localhost", "Kemro.opc.4.IF1.1.94a");
-            //dAReader.CreateGroup();
-            //dAReader.LoadNodes();
-            //dAReader.Read();
-            //var res=server.IsSuccess;
-            //dAReader.Disconnect();
-            //var resb = server.IsSuccess ;
-            //var s= server.Server;
-
+            DAReader dAReader = new DAReader("test");
+            //Kepware.KEPServerEX.V6
+            //var server = dAReader.Connect("localhost", "Kemro.opc.4.IF1.1.94a");
+            var server = dAReader.Connect("localhost", "Kepware.KEPServerEX.V6");
+            dAReader.CreateGroup();
+            dAReader.LoadNodes();
             Tasks tasks = new Tasks();
-            tasks.Add();
+            tasks.Add(dAReader);
             
         }
     }
