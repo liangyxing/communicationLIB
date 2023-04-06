@@ -8,11 +8,22 @@ using System.Threading.Tasks;
 
 namespace OPCDA.DATasks
 {
-   
+    public delegate void taskFunc();
+
     public class Tasks
     {
-        List<TaskInfo> taskList = new List<TaskInfo>();
 
+        List<TaskInfo> taskList = new List<TaskInfo>();
+        taskFunc s;
+        public void test()
+        {
+
+        }
+
+        public Tasks(taskFunc funcs)
+        {
+            this.s = funcs;
+        }
         public TaskInfo Create()
         {
             Process currentProcess = Process.GetCurrentProcess();
@@ -20,23 +31,23 @@ namespace OPCDA.DATasks
             CancellationTokenSource cts = new CancellationTokenSource();
             Task res= Task.Factory.StartNew(() =>
             {
-                resetEvent.WaitOne();//等开开启线程
+                resetEvent.WaitOne();//等开启线程
                 try
                 {
                     while (true)
                     {
+                        s.Invoke();                      
                         cts.Token.ThrowIfCancellationRequested();
-                        Console.WriteLine(1);
-                        Console.WriteLine(currentProcess.Id);
-                        Thread.Sleep(1000);
+                        
+                        //Console.WriteLine(1);
+                        //Console.WriteLine(currentProcess.Id);
+                        //Thread.Sleep(1000);
                     }
                 }
                 catch(Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
-                }
-                
-                             
+                }                            
             },cts.Token,TaskCreationOptions.LongRunning, TaskScheduler.Default);
             return new TaskInfo
             {
@@ -44,7 +55,6 @@ namespace OPCDA.DATasks
                 Cts = cts,
                 ResetEvent=resetEvent,
                 CurrentProcess=currentProcess
-
             };
         }
 
@@ -66,10 +76,6 @@ namespace OPCDA.DATasks
                     taskList[0].Cts.Cancel();
                 }
             }
-
-
-
-
         }
 
     }

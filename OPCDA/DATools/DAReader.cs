@@ -93,16 +93,22 @@ namespace OPCDA.DATools
                     ItemName = nodeInfo.Address.ToString()
                 });
             }
+            this.subscription = (Subscription)Server.CreateSubscription(state);
+            var itemss = items.ToArray();
+            subscription.AddItems(items.ToArray());
         }
 
-        public void Read()
+        public async void ReadAsync()
         {
-            this.subscription = (Subscription)Server.CreateSubscription(state);
-            var itemss=items.ToArray();
-            subscription.AddItems(items.ToArray());
-            ItemValueResult[] values = subscription.Read(subscription.Items);
-            var res= subscription.Items.Length;
-            foreach (var item in values)
+            
+            //ItemValueResult[] values;
+            var res= await Task.Run(() =>
+            {
+                return subscription.Read(subscription.Items);
+            });
+            
+            
+            foreach (var item in res as ItemValueResult[])
             {
                 Console.WriteLine(item.ItemName+":::         "+item.Value);
             }
