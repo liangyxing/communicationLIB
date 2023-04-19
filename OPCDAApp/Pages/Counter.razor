@@ -1,0 +1,19 @@
+﻿@page "/counter"
+@using OPCDAApp.Tools.FilesOperation;
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<h1>@fileName</h1>
+@code {
+    private int currentCount = 0;
+    private string fileName = "";
+    private async Task IncrementCount()
+    {
+
+        fileName= await new OpenFile().Open();
+        currentCount++;
+    }
+}
