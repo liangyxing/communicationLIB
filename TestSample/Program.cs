@@ -1,6 +1,6 @@
 ﻿using OPCDA.DATasks;
 using OPCDA.DATools;
-
+using OPCDA.DAServices;
 namespace TestSample
 {
     internal class Program
@@ -26,12 +26,15 @@ namespace TestSample
             //tasks.Add(dAReader);
             #endregion
 
+            #region
+            //ConfigDB.DBContext.SqlLiteDBContext context = new ConfigDB.DBContext.SqlLiteDBContext();
+            //var res = context.dANodeInfoModels.FirstOrDefault();
+            //await Console.Out.WriteLineAsync(res?.ToString());
+            #endregion
 
-            ConfigDB.DBContext.SqlLiteDBContext context=new  ConfigDB.DBContext.SqlLiteDBContext();
-            var res= context.dANodeInfoModels.FirstOrDefault();
-            await Console.Out.WriteLineAsync(res?.ToString());
-
-
+            Servicses servicses = new Servicses();
+            await servicses.SaveNodeServiceAsync("keba");
+            while (true) { }
 
 
         }

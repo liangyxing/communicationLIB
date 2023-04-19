@@ -12,7 +12,9 @@ namespace OPCDA.Entity
         /// <summary>
         /// OPCItem变量名称
         /// </summary>
-        public string TypeName { get; set; }
+        public int Id { get; set; }
+        
+        public string MachineName { get; set; }
         public string Tag_Name { get; set; }
 
         /// <summary>

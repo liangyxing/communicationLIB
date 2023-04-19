@@ -7,8 +7,12 @@
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="CsvHelper" Version="30.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
 		<PackageReference Include="Quick.OpcNetApi" Version="2.1.108" />
 		<PackageReference Include="Quick.OpcNetApi.Com" Version="2.1.108" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\ConfigDB\ConfigDB.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Update="NodeFiles\Core1.csv">

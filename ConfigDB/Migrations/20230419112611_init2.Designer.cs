@@ -2,6 +2,7 @@
 using ConfigDB.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConfigDB.Migrations
 {
     [DbContext(typeof(SqlLiteDBContext))]
-    partial class SqlLiteDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230419112611_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
@@ -27,6 +30,7 @@ namespace ConfigDB.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MachineName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Tag_Name")
@@ -34,9 +38,11 @@ namespace ConfigDB.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Time")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

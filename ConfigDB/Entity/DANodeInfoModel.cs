@@ -12,9 +12,9 @@ namespace ConfigDB.Entity
         /// <summary>
         /// OPCItem变量名称
         /// </summary>
-        
+
         public int Id { get; set; }
-        public string MachineName { get; set; }
+        public string? MachineName { get; set; }
 
 
         /// <summary>
@@ -26,10 +26,10 @@ namespace ConfigDB.Entity
         /// <summary>
         /// 读取回来的值
         /// </summary>
-        public string Value { get; set; }
+        public string? Value { get; set; }
         /// <summary>
         /// OPCItem时间戳
         /// </summary>
-        public string Time { get; set; }
+        public string? Time { get; set; }
     }
 }

@@ -34,9 +34,6 @@ namespace OPCDA.DATasks
 
                         await reader.ReadAsync();
                         cts.Token.ThrowIfCancellationRequested();
-                    //    Console.WriteLine(1);
-                    //    Console.WriteLine(currentProcess.Id);
-                    //    Thread.Sleep(1000);
                     }
                 }
                 catch(Exception ex)
@@ -74,10 +71,6 @@ namespace OPCDA.DATasks
                     taskList[0].Cts.Cancel();
                 }
             }
-
-
-
-
         }
 
     }
