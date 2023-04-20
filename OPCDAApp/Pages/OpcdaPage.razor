@@ -1,0 +1,21 @@
+﻿@page "/opcda"
+@using Tools.FilesOperation
+
+<div>
+    <h3>OPCDA</h3>
+    <h1>@machineName</h1>
+    <button @onclick="OpenFile">open file</button>
+    <input @bind="machineName" />
+</div>
+
+
+@code {
+
+    private string machineName = "";
+
+    private async Task OpenFile()
+    {
+       await new OpenFile().Read(machineName);
+
+    }
+}

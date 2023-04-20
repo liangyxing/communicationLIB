@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigDB", "ConfigDB\Config
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicationSerivices", "CommunicationSerivices\CommunicationSerivices.csproj", "{E0D98FED-DE44-49CB-9C6F-D2CE8CD88EFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPCDAApp", "OPCDAApp\OPCDAApp.csproj", "{2915A9DB-AB50-4E9D-B2E7-4BC74EF6FF5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPCDAApp", "OPCDAApp\OPCDAApp.csproj", "{42BF41C4-B0FF-4CFE-8772-CCC6C955824E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +35,12 @@ Global
 		{E0D98FED-DE44-49CB-9C6F-D2CE8CD88EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0D98FED-DE44-49CB-9C6F-D2CE8CD88EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0D98FED-DE44-49CB-9C6F-D2CE8CD88EFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2915A9DB-AB50-4E9D-B2E7-4BC74EF6FF5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2915A9DB-AB50-4E9D-B2E7-4BC74EF6FF5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2915A9DB-AB50-4E9D-B2E7-4BC74EF6FF5C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{2915A9DB-AB50-4E9D-B2E7-4BC74EF6FF5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2915A9DB-AB50-4E9D-B2E7-4BC74EF6FF5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2915A9DB-AB50-4E9D-B2E7-4BC74EF6FF5C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{42BF41C4-B0FF-4CFE-8772-CCC6C955824E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42BF41C4-B0FF-4CFE-8772-CCC6C955824E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42BF41C4-B0FF-4CFE-8772-CCC6C955824E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{42BF41C4-B0FF-4CFE-8772-CCC6C955824E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42BF41C4-B0FF-4CFE-8772-CCC6C955824E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42BF41C4-B0FF-4CFE-8772-CCC6C955824E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

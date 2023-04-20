@@ -17,7 +17,7 @@
 
         <!-- App Identifier -->
         <ApplicationId>com.companyname.opcdaapp</ApplicationId>
-        <ApplicationIdGuid>EACCCEF0-A703-4A8D-A486-F58AEBBFC9DF</ApplicationIdGuid>
+        <ApplicationIdGuid>848059E2-7ED9-4647-AE27-E1E8CB240D06</ApplicationIdGuid>
 
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -51,6 +51,11 @@
 
     <ItemGroup>
       <PackageReference Include="AntDesign" Version="0.14.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ConfigDB\ConfigDB.csproj" />
+      <ProjectReference Include="..\OPCDA\OPCDA.csproj" />
     </ItemGroup>
 
 </Project>

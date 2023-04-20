@@ -8,7 +8,6 @@ namespace OPCDAApp
 		public static MauiApp CreateMauiApp()
 		{
 			var builder = MauiApp.CreateBuilder();
-			builder.Services.AddAntDesign();
 			builder
 				.UseMauiApp<App>()
 				.ConfigureFonts(fonts =>
