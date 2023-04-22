@@ -1,11 +1,29 @@
 ﻿@page "/opcda"
+@using OPCDAApp.Entity;
 @using Tools.FilesOperation
+@using Tools.DAOperations
 
 <div>
     <h3>OPCDA</h3>
     <h1>@machineName</h1>
     <button @onclick="OpenFile">open file</button>
     <input @bind="machineName" />
+</div>
+<div>
+    <button @onclick="GetDAService" >select item</button>
+    <select @onchange="SelectedCarsChanged" name="myselect" class="form-select" aria-label="Default select example" style="width:200px">
+        @foreach (var items in DAList)
+        {
+            <option disabled style="color:aquamarine">@items.DAType</option>
+            <hr class="dropdown-divider" style="color:aquamarine">
+            foreach (var item in items.DAServerName)
+            {
+                <option >  @item</option>
+            }
+        }
+
+    </select>
+    <h1>@DAServerName</h1>
 </div>
 
 
@@ -15,7 +33,30 @@
 
     private async Task OpenFile()
     {
-       await new OpenFile().Read(machineName);
+        await new OpenFile().Read(machineName);
 
     }
+
+
+    private List<OPCDA.Entity.ServerItem> DAList = new List<OPCDA.Entity.ServerItem>();
+
+    private void GetDAService()
+    {
+        DAList = new GetHostDALists().Get();
+        //return DAList;
+
+    }
+
+    public string DAServerName = "";
+    private void SelectedCarsChanged(ChangeEventArgs e)
+    {
+        this.DAServerName = e.Value.ToString();
+    }
+
+
+
 }
+
+
+
+

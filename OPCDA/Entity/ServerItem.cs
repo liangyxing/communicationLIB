@@ -8,8 +8,10 @@ namespace OPCDA.Entity
 {
     public class ServerItem
     {
+
         public string DAType { get; set; }
         public List<string> DAServerName { get; set; }
+
 
     }
 }
