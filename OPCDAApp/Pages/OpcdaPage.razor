@@ -4,29 +4,68 @@
 @using Tools.DAOperations
 
 <div>
-    <h3>OPCDA</h3>
-    <h1>@machineName</h1>
-    <button @onclick="OpenFile">open file</button>
-    <input @bind="machineName" />
-</div>
-<div>
-    <button @onclick="GetDAService" >select item</button>
-    <select @onchange="SelectedCarsChanged" name="myselect" class="form-select" aria-label="Default select example" style="width:200px">
-        @foreach (var items in DAList)
-        {
-            <option disabled style="color:aquamarine">@items.DAType</option>
-            <hr class="dropdown-divider" style="color:aquamarine">
-            foreach (var item in items.DAServerName)
+    <div >
+        <h3>OPCDA</h3>
+        <div class="test">
+            <button @onclick="OpenFile">open file</button>
+            <input @bind="machineName" />
+        </div>
+
+    </div>
+    <div class="test">
+        <button @onclick="GetDAService" >select item</button>
+        <select @onchange="SelectedCarsChanged" name="myselect" class="form-select" aria-label="Default select example" style="width:200px">
+            @foreach (var items in DAList)
             {
-                <option >  @item</option>
+                <option disabled style="color:aquamarine">@items.DAType</option>
+                <hr class="dropdown-divider" style="color:aquamarine">
+                foreach (var item in items.DAServerName)
+                {
+                    <option >@item</option>
+                }
             }
+
+        </select>
+
+    </div>
+    <div>
+        <button @onclick="LoadNodes">
+            loadNodes
+        </button>
+        <button @onclick="Read">Read</button>
+    </div>
+    <div class="table-responsive">
+        @if(isTableVisible)
+        {
+            <table class="table`">
+                <thead class="table-light">
+                    <tr>
+                        <th>name</th>
+                        <td>value</td>
+                        <td>date</td>
+                    </tr>
+                </thead>
+                <tbody isv>
+                    @foreach (var item in res)
+                    {
+                        <tr>
+                            <td>
+                                @item.ItemName
+                            </td>
+                            <td>
+                                @item.Value
+                            </td>
+                            <td>
+                                @item.Timestamp
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
         }
-
-    </select>
-    <h1>@DAServerName</h1>
+    </div>
 </div>
-
-
 @code {
 
     private string machineName = "";
@@ -53,7 +92,21 @@
         this.DAServerName = e.Value.ToString();
     }
 
+    DABorwser borwser;
+    private void LoadNodes()
+    {
+        borwser = new DABorwser();
 
+        borwser.ConfigDAHost("keba", "keba", this.DAServerName);
+
+    }
+    bool isTableVisible = false;
+    Opc.Da.ItemValueResult[] res;
+    private void Read()
+    {
+        borwser.Reader();
+        isTableVisible = false;
+    }
 
 }
 

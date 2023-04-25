@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Opc.Da;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace OPCDA.Entity
         public Task Task { get; set; }
         public ManualResetEvent ResetEvent { get; set; }
         public Process CurrentProcess { get; set; }
+        public ItemValueResult[] dataResults { get; set; }
     }
 }

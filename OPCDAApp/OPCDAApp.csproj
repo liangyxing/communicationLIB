@@ -58,8 +58,4 @@
       <ProjectReference Include="..\OPCDA\OPCDA.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Entity\新文件夹\" />
-    </ItemGroup>
-
 </Project>

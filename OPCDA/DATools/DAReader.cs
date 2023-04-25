@@ -3,6 +3,7 @@ using Opc.Da;
 using OPCDA.Entity;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -74,32 +75,40 @@ namespace OPCDA.DATools
            
         }
 
-        public void LoadNodes()
+        public void LoadNodes(string machineName)
         {
-            IEnumerable<DANodeInfo> nodeInfos;
+            IEnumerable<ConfigDB.Entity.DANodeInfoModel> nodeInfos;
 
             //using (var reader = new StreamReader("./NodeFiles/Core1.csv"))
-            using (var reader = new StreamReader("./NodeFiles/nodes.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            //using (var reader = new StreamReader("./NodeFiles/nodes.csv"))
+            //using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            //{
+            //    csv.Context.RegisterClassMap<DANodeInfoMap>();
+            //     nodeInfos = csv.GetRecords<DANodeInfo>().ToList();
+            //}
+
+            using (var reader = new ConfigDB.DBContext.SqlLiteDBContext())
             {
-                csv.Context.RegisterClassMap<DANodeInfoMap>();
-                 nodeInfos = csv.GetRecords<DANodeInfo>().ToList();
+                nodeInfos = reader.dANodeInfoModels.Where(i => i.MachineName == machineName).ToList();
+
             }
+            
+
             foreach (var nodeInfo in nodeInfos)
-            {
-                items.Add(new Item
                 {
-                    ClientHandle = Guid.NewGuid().ToString(),
-                    ItemPath = null,
-                    ItemName = nodeInfo.Address.ToString()
-                });
-            }
+                    items.Add(new Item
+                    {
+                        ClientHandle = Guid.NewGuid().ToString(),
+                        ItemPath = null,
+                        ItemName = nodeInfo.Address.ToString()
+                    });
+                }
             this.subscription = (Subscription)Server.CreateSubscription(state);
             var itemss = items.ToArray();
             subscription.AddItems(items.ToArray());
         }
 
-        public async Task ReadAsync()
+        public async Task<ItemValueResult[]> ReadAsync()
         {
             
             //ItemValueResult[] values;
@@ -107,12 +116,13 @@ namespace OPCDA.DATools
             {
                 return subscription.Read(subscription.Items);
             });
+
             
-            
-            foreach (var item in res as ItemValueResult[])
-            {
-                Console.WriteLine(item.ItemName+":::         "+item.Value + ":::         " + item.Timestamp);
-            }
+            //foreach (var item in res as ItemValueResult[])
+            //{
+            //    Debug.WriteLine(item.ItemName+":::         "+item.Value + ":::         " + item.Timestamp);
+            //}
+             return res;
         }
     }
 }

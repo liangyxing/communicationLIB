@@ -1,4 +1,5 @@
-﻿using OPCDA.DATools;
+﻿using Opc.Da;
+using OPCDA.DATools;
 using OPCDA.Entity;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace OPCDA.DATasks
             Process currentProcess = Process.GetCurrentProcess();
             ManualResetEvent resetEvent = new ManualResetEvent(false);
             CancellationTokenSource cts = new CancellationTokenSource();
+            ItemValueResult[] dataReturn; ;
             Task res= Task.Factory.StartNew(async () =>
             {
                 resetEvent.WaitOne();//等开开启线程
@@ -32,8 +34,9 @@ namespace OPCDA.DATasks
                     while (true)
                     {
 
-                        await reader.ReadAsync();
+                        dataReturn= await reader.ReadAsync();
                         cts.Token.ThrowIfCancellationRequested();
+                        Debug.WriteLine("124");
                     }
                 }
                 catch(Exception ex)
@@ -48,8 +51,8 @@ namespace OPCDA.DATasks
                 Task = res,
                 Cts = cts,
                 ResetEvent=resetEvent,
-                CurrentProcess=currentProcess
-
+                CurrentProcess=currentProcess,
+               
             };
         }
 
@@ -57,20 +60,21 @@ namespace OPCDA.DATasks
         {
             taskList.Add(Create(reader));
             Console.WriteLine(taskList[0].Task.Id);
+            taskList[0].ResetEvent.Set();
 
-     
-            while (true)
-            {
-                ConsoleKeyInfo key = Console.ReadKey();
-                if (key.KeyChar == '1')
-                {
-                    taskList[0].ResetEvent.Set();
-                }
-                else if (key.KeyChar == '2')
-                {
-                    taskList[0].Cts.Cancel();
-                }
-            }
+
+            //while (true)
+            //{
+            //    ConsoleKeyInfo key = Console.ReadKey();
+            //    if (key.KeyChar == '1')
+            //    {
+            //        taskList[0].ResetEvent.Set();
+            //    }
+            //    else if (key.KeyChar == '2')
+            //    {
+            //        taskList[0].Cts.Cancel();
+            //    }
+            //}
         }
 
     }
