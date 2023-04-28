@@ -11,6 +11,7 @@ namespace OPCDAApp.Tools.DAOperations
     public class DABorwser
     {
         DAReader reader;
+        public ItemValueResult[] res { get; set; }
         public void ConfigDAHost(string groupName,string machineName,string serverName)
         {
             
@@ -19,21 +20,17 @@ namespace OPCDAApp.Tools.DAOperations
             reader.CreateGroup();
             reader.LoadNodes(machineName);
         }
-
-        //public async Task<ItemValueResult[]> Reader()
-        //{
-        //    Tasks tasks = new Tasks();
-        //    tasks.Add(reader);
-        //    //return await reader.ReadAsync();
-        //}        
-        public ItemValueResult[] Reader()
+     
+        public void Reader(Func<ItemValueResult[], ItemValueResult[]>CallBack)
         {
             Tasks tasks = new Tasks();
-            tasks.Add(reader);
-            var res= tasks.taskList[0].dataResults;
-            return res;
-            //return await reader.ReadAsync();
+            //var callBack = new Func<ItemValueResult[], ItemValueResult[]>(CallBack);
+            tasks.Add(reader, CallBack);
+            tasks.taskList[0].ResetEvent.Set();
+            
         }
+
+
 
     }
 }

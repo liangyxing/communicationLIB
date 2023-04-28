@@ -116,12 +116,6 @@ namespace OPCDA.DATools
             {
                 return subscription.Read(subscription.Items);
             });
-
-            
-            //foreach (var item in res as ItemValueResult[])
-            //{
-            //    Debug.WriteLine(item.ItemName+":::         "+item.Value + ":::         " + item.Timestamp);
-            //}
              return res;
         }
     }

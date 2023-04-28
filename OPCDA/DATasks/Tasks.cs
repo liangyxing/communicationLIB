@@ -15,11 +15,12 @@ namespace OPCDA.DATasks
     {
         public List<TaskInfo> taskList = new List<TaskInfo>();
         DAReader Reader;
+        
         public Tasks()
         {
 
         }
-        public TaskInfo Create(DAReader reader)
+        public TaskInfo Create(DAReader reader,Func<ItemValueResult[], ItemValueResult[]> valueCallBack)
         {
             Process currentProcess = Process.GetCurrentProcess();
             ManualResetEvent resetEvent = new ManualResetEvent(false);
@@ -36,6 +37,7 @@ namespace OPCDA.DATasks
 
                         dataReturn= await reader.ReadAsync();
                         cts.Token.ThrowIfCancellationRequested();
+                        valueCallBack(dataReturn);
                         Debug.WriteLine("124");
                     }
                 }
@@ -52,30 +54,15 @@ namespace OPCDA.DATasks
                 Cts = cts,
                 ResetEvent=resetEvent,
                 CurrentProcess=currentProcess,
-                 dataResults=dataReturn
+                dataResults=dataReturn
                
             };
         }
 
-        public void Add(DAReader reader)
+        public void Add(DAReader reader, Func<ItemValueResult[], ItemValueResult[]> valueCallBack)
         {
-            taskList.Add(Create(reader));
-            Console.WriteLine(taskList[0].Task.Id);
-            taskList[0].ResetEvent.Set();
+            taskList.Add(Create(reader,valueCallBack));
 
-
-            //while (true)
-            //{
-            //    ConsoleKeyInfo key = Console.ReadKey();
-            //    if (key.KeyChar == '1')
-            //    {
-            //        taskList[0].ResetEvent.Set();
-            //    }
-            //    else if (key.KeyChar == '2')
-            //    {
-            //        taskList[0].Cts.Cancel();
-            //    }
-            //}
         }
 
     }
