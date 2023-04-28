@@ -13,7 +13,7 @@ namespace OPCDA.DATasks
    
     public class Tasks
     {
-        List<TaskInfo> taskList = new List<TaskInfo>();
+        public List<TaskInfo> taskList = new List<TaskInfo>();
         DAReader Reader;
         public Tasks()
         {
@@ -24,7 +24,7 @@ namespace OPCDA.DATasks
             Process currentProcess = Process.GetCurrentProcess();
             ManualResetEvent resetEvent = new ManualResetEvent(false);
             CancellationTokenSource cts = new CancellationTokenSource();
-            ItemValueResult[] dataReturn; ;
+            ItemValueResult[] dataReturn=null; 
             Task res= Task.Factory.StartNew(async () =>
             {
                 resetEvent.WaitOne();//等开开启线程
@@ -52,6 +52,7 @@ namespace OPCDA.DATasks
                 Cts = cts,
                 ResetEvent=resetEvent,
                 CurrentProcess=currentProcess,
+                 dataResults=dataReturn
                
             };
         }

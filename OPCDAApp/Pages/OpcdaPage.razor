@@ -1,4 +1,5 @@
 ﻿@page "/opcda"
+@using OPCDA.Entity;
 @using OPCDAApp.Entity;
 @using Tools.FilesOperation
 @using Tools.DAOperations
@@ -104,8 +105,8 @@
     Opc.Da.ItemValueResult[] res;
     private void Read()
     {
-        borwser.Reader();
-        isTableVisible = false;
+       res = borwser.Reader();
+        isTableVisible = true;
     }
 
 }

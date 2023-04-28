@@ -26,10 +26,12 @@ namespace OPCDAApp.Tools.DAOperations
         //    tasks.Add(reader);
         //    //return await reader.ReadAsync();
         //}        
-        public void Reader()
+        public ItemValueResult[] Reader()
         {
             Tasks tasks = new Tasks();
             tasks.Add(reader);
+            var res= tasks.taskList[0].dataResults;
+            return res;
             //return await reader.ReadAsync();
         }
 
